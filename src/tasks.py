@@ -123,3 +123,60 @@ def get_overdue_tasks(tasks):
         if not task.get("completed", False) and 
            task.get("due_date", "") < today
     ]
+
+
+def filter_tasks_by_due_range(tasks, start_date, end_date):
+    """
+    Filter tasks whose due_date is between start_date and end_date (inclusive).
+
+    Args:
+        tasks (list): List of task dictionaries.
+        start_date (str): Start of range, in "YYYY-MM-DD" format.
+        end_date (str): End of range, in "YYYY-MM-DD" format.
+
+    Returns:
+        list: Tasks within the given due date range.
+    """
+    return [
+        task for task in tasks
+        if start_date <= task.get("due_date", "") <= end_date
+    ]
+
+
+def set_task_priority(tasks, task_id, priority):
+    """
+    Set or update the priority of a task.
+
+    Args:
+        tasks (list): List of task dictionaries.
+        task_id (int): ID of the task to update.
+        priority (str): New priority value ("Low", "Medium", "High").
+
+    Returns:
+        bool: True if task was found and updated, False otherwise.
+    """
+    for task in tasks:
+        if task["id"] == task_id:
+            task["priority"] = priority
+            return True
+    return False
+
+
+def set_task_category(tasks, task_id, category):
+    """
+    Set or update the category of a task.
+
+    Args:
+        tasks (list): List of task dictionaries.
+        task_id (int): ID of the task to update.
+        category (str): New category value (e.g., "Work", "Personal").
+
+    Returns:
+        bool: True if task was found and updated, False otherwise.
+    """
+    for task in tasks:
+        if task["id"] == task_id:
+            task["category"] = category
+            return True
+    return False
+
